@@ -1,5 +1,6 @@
 import numpy as np
 
+# possible card numbers
 cards_dict = {
 	"A": 1,
 	"2": 2,
@@ -16,8 +17,8 @@ cards_dict = {
 	"K": 10,
 }
 cards = list(cards_dict.keys())
-numbers = [1,2,3,4,5,6,7,8,9,10,10,10,10]
 
+# class for player's and dealer's blackjack hands
 class Hand(list):
 	# initializes hand with two cards
 	def __init__(self):
@@ -39,7 +40,7 @@ class Hand(list):
 		card = np.random.choice(cards)
 		return card
 
-	# adds another card to the hand
+	# adds a card to the hand
 	def draw_card(self):
 		card = self.get_card()
 		value = cards_dict[card]
@@ -52,23 +53,27 @@ class Hand(list):
 				self.soft_total = self.total
 		self.append(card)
 	
-
+	# adds a card to hand and calculates if hand busts
 	def hit(self):
 		self.draw_card()
 		self.bust = self.total > 21
 		print(self)
 		self.display_total()
 	
+	# displays hand total and soft total if there is one
 	def display_total(self):
 		print("Total: " + str(self.total))
 		if self.soft_total != self.total and self.soft_total <= 21:
 			print("Soft total: " + str(self.soft_total))
 	
+	# displays cards
 	def display_your_cards(self, prefix):
 		print(prefix + str(self))
 
+	# displays dealer's cards with first one hidden
 	def display_dealer_cards(self):
 		print ("Dealer's cards: * " + str(self[1]))
 	
+	# checks if first two cards have blackjack
 	def check_for_blackjack(self):
 		return len(self) == 2 and self.soft_total == 21

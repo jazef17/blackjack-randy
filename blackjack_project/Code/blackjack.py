@@ -127,6 +127,7 @@ def main():
 		playing = input("Play again?")
 	return
 
-main()
+if __name__ == '__main__':
+    main()
 
 # TODO:
